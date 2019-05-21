@@ -10,18 +10,28 @@ Ni måste inte följa dem slaviskt, men för att ni ska få en idé om vad jag �
 
 G:
 
-Använda git. Committa varje dag, helst flera gånger och för varje "del" ni jobbar med. Vill inte ha en stor commit sista dagen och sörskilt inte en commit som består av en zip-fil som är uppladdad via github.
-Koden ska vara objektorienterad.
-Kommenterad kod.
-Prepared statements.
-Sanering av input, filtrera input-data, validera input-data.
-Genomföra betalning.
-Uppfylla kraven.
+- Använda git. Committa varje dag, helst flera gånger och för varje "del" ni jobbar med. Vill inte ha en stor commit sista dagen och sörskilt inte en commit som består av en zip-fil som är uppladdad via github.
+
+- Koden ska vara objektorienterad.
+
+- Kommenterad kod.
+
+- Prepared statements.
+
+- Sanering av input, filtrera input-data, validera input-data.
+
+- Genomföra betalning.
+
+- Uppfylla kraven.
 
 VG:
 
-Generell kod.
-Följ kodstandard PSR2.
-Deploya på en domän.
-Genomtänkt gränssnitt med responsiv design.
-Spara kunderna ni skapar i Stripe i databasen så ni kan använda dem igen nästa gång
+- Generell kod.
+
+- Följ kodstandard PSR2.
+
+- Deploya på en domän.
+
+- Genomtänkt gränssnitt med responsiv design.
+
+- Spara kunderna ni skapar i Stripe i databasen så ni kan använda dem igen nästa gång
