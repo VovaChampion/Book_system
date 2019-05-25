@@ -1,4 +1,7 @@
 <?php
+require_once('class/csv.php');
+
+$csv = new CSV();
 
 $msg = NULL;
 
@@ -21,24 +24,43 @@ if ( isset($_POST["submit"]) )
             }
             if ($check) 
             {
-                //$date = date('Ymd_His');
                 $file_id = uniqid();
-                // $path = realpath('./') . '/upload/' . "$date" . "_" . $_FILES['books_file']['name'];
-
-                $path = realpath('./') . '/upload/' . "$file_id" . ".csv";
-
+                $path = realpath('./') . "/" . $csv->dir . "$file_id" . ".csv";
                 move_uploaded_file($_FILES['file']['tmp_name'], "$path");
+
+                header("Location:checkout.php");
             }
-            //var_dump($check);
+            
         }
     }
+    
 } 
 
 ?>
 
 <?php include "templates/header.php"; ?>
     <div class="container">
-        <table width="600">
+        <div class="select_file">
+            <form method="post" enctype="multipart/form-data">
+                <span>Select file</span>
+                <input type="file" name="file" id="file" />
+                <span>Submit</span>
+                <input type="submit" name="submit" />
+            </form>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <?php echo $msg; ?>    
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <a href="checkout.php" class="btn btn-primary" role="button">Go to checkout</a>
+
+<?php include "templates/footer.php"; ?>
+
+
+        <!-- <table class="select_file" width="600">
             <form method="post" enctype="multipart/form-data">
                 <tr>
                     <td width="20%">Select file</td>
@@ -49,15 +71,9 @@ if ( isset($_POST["submit"]) )
                     <td><input type="submit" name="submit" /></td>
                 </tr>
             </form>
-        </table>
+        </table> 
         <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
-                <?php echo $msg; ?>    
+            <?php //echo $msg; ?>    
             </div>
-        </div>
-    </div>
-
-    <a href="checkout.php" class="btn btn-primary" role="button">Go to checkout</a><br>
-
-<?php include "templates/header.php"; ?>
-
+        </div>-->
