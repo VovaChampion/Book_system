@@ -1,6 +1,6 @@
 <?php
 
-class DOWNLOAD extends CSV
+class Download extends CSV
 {
     protected $dir = "newfiles/";
 }

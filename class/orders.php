@@ -1,6 +1,7 @@
 <?php
+require_once('class/db.php');
 
-class ORDERS 
+class Orders 
 {
     private $db;
 
@@ -41,12 +42,155 @@ class ORDERS
             ':date' => $date
         ]);
 
+        // $this->sendStripe($name,$email,$phone);
+
         // $id_order = $this->db->lastInsertId(); 
         // return $id_order;
         // $stmt = $this->db->query("SELECT LAST_INSERT_ID()");
         // $id_order = $stmt->fetchColumn();
         
-        //header("Location:confirm.php");
+        header("Location:confirm.php");
+    }
+
+    public function sendStripe($name,$email,$phone)
+    {
+        require_once('vendor/stripe/stripe-php/init.php');
+        \Stripe\Stripe::setApiKey('sk_test_Y5Fm9BboJjOtQwUFG4N7AzTk'); //YOUR_STRIPE_SECRET_KEY
+
+        $token = (isset($_POST['stripeToken'])) ? $_POST['stripeToken'] : null;
+
+        $name_last = "Sunset";
+        $address = "Vasagatan";
+        $state = "Stockholm";
+        $zip = "12050";
+        $country = "Sweden";
+        $user_info = [
+            'First Name' => $name,
+            'Last Name' => $name_last,
+            'Address' => $address,
+            'State' => $state,
+            'Zip Code' => $zip,
+            'Country' => $country,
+            'Phone' => $phone
+        ];
+        // $customer_id = 'cus_F6Ai4gLolcMAb3';
+        if (isset($customer_id)) 
+        {
+            try {
+                // Use Stripe's library to make requests...
+                $customer = \Stripe\Customer::retrieve($customer_id);
+            } catch (\Stripe\Error\Card $e) {
+                // Since it's a decline, \Stripe\Error\Card will be caught
+                $body = $e->getJsonBody();
+                $err  = $body['error'];
+            
+                print('Status is:' . $e->getHttpStatus() . "\n");
+                print('Type is:' . $err['type'] . "\n");
+                print('Code is:' . $err['code'] . "\n");
+                // param is '' in this case
+                print('Param is:' . $err['param'] . "\n");
+                print('Message is:' . $err['message'] . "\n");
+            } catch (\Stripe\Error\RateLimit $e) {
+                // Too many requests made to the API too quickly
+            } catch (\Stripe\Error\InvalidRequest $e) {
+                // Invalid parameters were supplied to Stripe's API
+            } catch (\Stripe\Error\Authentication $e) {
+                // Authentication with Stripe's API failed
+                // (maybe you changed API keys recently)
+            } catch (\Stripe\Error\ApiConnection $e) {
+                // Network communication with Stripe failed
+            } catch (\Stripe\Error\Base $e) {
+                // Display a very generic error to the user, and maybe send
+                // yourself an email
+            } catch (Exception $e) {
+                // Something else happened, completely unrelated to Stripe
+            }
+        } else {
+            try {
+                // Use Stripe's library to make requests...
+                $customer = \Stripe\Customer::create(array(
+                    //'email' => 'rednalan23@gmail.com',
+                    'email' => $email,
+                    'source' => $token,
+                    'metadata' => $user_info,
+                ));
+            } catch (\Stripe\Error\Card $e) {
+                // Since it's a decline, \Stripe\Error\Card will be caught
+                $body = $e->getJsonBody();
+                $err  = $body['error'];
+            
+                print('Status is:' . $e->getHttpStatus() . "\n");
+                print('Type is:' . $err['type'] . "\n");
+                print('Code is:' . $err['code'] . "\n");
+                // param is '' in this case
+                print('Param is:' . $err['param'] . "\n");
+                print('Message is:' . $err['message'] . "\n");
+            } catch (\Stripe\Error\RateLimit $e) {
+                // Too many requests made to the API too quickly
+            } catch (\Stripe\Error\InvalidRequest $e) {
+                // Invalid parameters were supplied to Stripe's API
+            } catch (\Stripe\Error\Authentication $e) {
+                // Authentication with Stripe's API failed
+                // (maybe you changed API keys recently)
+            } catch (\Stripe\Error\ApiConnection $e) {
+                // Network communication with Stripe failed
+            } catch (\Stripe\Error\Base $e) {
+                // Display a very generic error to the user, and maybe send
+                // yourself an email
+            } catch (Exception $e) {
+                // Something else happened, completely unrelated to Stripe
+            }
+        }
+
+        if (isset($customer)) 
+        {
+            //print_r($customer);
+            $charge_customer = true;
+            // Save the customer id in your own database!
+            $this->createOrder($name,$email,$phone);
+
+            // Charge the Customer instead of the card
+            try {
+                // Use Stripe's library to make requests...
+                $charge = \Stripe\Charge::create(array(
+                    'amount' => 9900,
+                    'description' => 'Books',
+                    'currency' => 'sek',
+                    'customer' => $customer->id,
+                    'metadata' => $user_info
+                ));
+            } catch (\Stripe\Error\Card $e) {
+                // Since it's a decline, \Stripe\Error\Card will be caught
+                $body = $e->getJsonBody();
+                $err  = $body['error'];
+            
+                print('Status is:' . $e->getHttpStatus() . "\n");
+                print('Type is:' . $err['type'] . "\n");
+                print('Code is:' . $err['code'] . "\n");
+                // param is '' in this case
+                print('Param is:' . $err['param'] . "\n");
+                print('Message is:' . $err['message'] . "\n");
+                $charge_customer = false;
+            } catch (\Stripe\Error\RateLimit $e) {
+                // Too many requests made to the API too quickly
+            } catch (\Stripe\Error\InvalidRequest $e) {
+                // Invalid parameters were supplied to Stripe's API
+            } catch (\Stripe\Error\Authentication $e) {
+                // Authentication with Stripe's API failed
+                // (maybe you changed API keys recently)
+            } catch (\Stripe\Error\ApiConnection $e) {
+                // Network communication with Stripe failed
+            } catch (\Stripe\Error\Base $e) {
+                // Display a very generic error to the user, and maybe send
+                // yourself an email
+            } catch (Exception $e) {
+                // Something else happened, completely unrelated to Stripe
+            }
+            if ($charge_customer) 
+            {
+                //print_r($charge);
+            }
+        }
     }
 }
 

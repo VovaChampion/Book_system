@@ -1,9 +1,16 @@
 <?php
 
+require_once 'upload_csv.php';
+require_once 'download_csv.php';
+
 class CSV 
 {
-    public $dir = "upload/";
-    public $dir_new = "newfiles/";
+    protected $dir;
+
+    public function getPath()
+    {
+        return $this->dir;
+    }
 
     public function fill_book($isbn)
     {
@@ -68,7 +75,6 @@ class CSV
         $myFile = $this->getLatestFile();
 
         echo "<table><br>";
-        echo "<caption> ISBN </caption>";
         //$f = fopen("upload/5ce6627b994dc.csv", "r");
         $f = fopen($this->dir . $myFile, "r");
         while (($line = fgetcsv($f)) !== false) 
@@ -86,6 +92,4 @@ class CSV
     }
 }  
         
-
-
 ?>

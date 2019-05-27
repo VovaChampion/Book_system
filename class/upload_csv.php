@@ -1,6 +1,6 @@
 <?php
 
-class UPLOAD extends CSV
+class Upload extends CSV
 {
     protected $dir = "upload/";
 }
