@@ -1,7 +1,7 @@
 <?php
 require_once('class/db.php');
 
-class Orders 
+class Order 
 {
     private $db;
 
@@ -15,8 +15,8 @@ class Orders
     public function getOrders() 
     {
         $stmt = $this->db->prepare('SELECT * FROM orders');
-        if($stmt->execute()){
-            if($stmt->rowCount()>0){
+        if ($stmt->execute()){
+            if ($stmt->rowCount()>0){
                 while ($row=$stmt->fetch(PDO::FETCH_ASSOC))
                 {
                     $data[] =$row;
@@ -25,6 +25,7 @@ class Orders
             }
         }
     }
+
     // // create a new order
     public function createOrder($name,$email,$phone)
     {
@@ -42,12 +43,8 @@ class Orders
             ':date' => $date
         ]);
 
-        // $this->sendStripe($name,$email,$phone);
-
         // $id_order = $this->db->lastInsertId(); 
         // return $id_order;
-        // $stmt = $this->db->query("SELECT LAST_INSERT_ID()");
-        // $id_order = $stmt->fetchColumn();
         
         header("Location:confirm.php");
     }
@@ -109,7 +106,6 @@ class Orders
             try {
                 // Use Stripe's library to make requests...
                 $customer = \Stripe\Customer::create(array(
-                    //'email' => 'rednalan23@gmail.com',
                     'email' => $email,
                     'source' => $token,
                     'metadata' => $user_info,
@@ -146,7 +142,8 @@ class Orders
         {
             //print_r($customer);
             $charge_customer = true;
-            // Save the customer id in your own database!
+
+            // Save the customer in your own database!
             $this->createOrder($name,$email,$phone);
 
             // Charge the Customer instead of the card
@@ -191,6 +188,17 @@ class Orders
                 //print_r($charge);
             }
         }
+    }
+
+    // get user email
+    public function getUser($email) 
+    {
+        $stmt = $this->db->prepare('SELECT email FROM orders WHERE email = :email');
+        
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;
     }
 }
 

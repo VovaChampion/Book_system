@@ -56,10 +56,10 @@ class CSV
 
         while (($file = readdir($dh)) !== false)
         {
-            if(is_file($dir.$file))
+            if (is_file($dir.$file))
             {
                 $mt = filemtime($dir.$file);
-                if($mt > $last)
+                if ($mt > $last)
                 {
                     $last = $mt;
                     $name = $file;
@@ -70,12 +70,12 @@ class CSV
         return $name;
     }
 
+    // Show the file's content as a table
     public function showFile()
     {
         $myFile = $this->getLatestFile();
 
         echo "<table><br>";
-        //$f = fopen("upload/5ce6627b994dc.csv", "r");
         $f = fopen($this->dir . $myFile, "r");
         while (($line = fgetcsv($f)) !== false) 
         {

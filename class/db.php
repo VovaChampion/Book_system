@@ -6,10 +6,6 @@ class DB
     private $user = 'root';
     private $pass = '';
     private $charset = 'utf8mb4';
-    //public $pdo;
-    // public $options = [
-    //     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    // ];
 
     protected $conn;
 
