@@ -80,13 +80,16 @@ class Order
                 // Since it's a decline, \Stripe\Error\Card will be caught
                 $body = $e->getJsonBody();
                 $err  = $body['error'];
-            
-                print('Status is:' . $e->getHttpStatus() . "\n");
-                print('Type is:' . $err['type'] . "\n");
-                print('Code is:' . $err['code'] . "\n");
-                // param is '' in this case
-                print('Param is:' . $err['param'] . "\n");
-                print('Message is:' . $err['message'] . "\n");
+
+                $msg = "<div class='alert alert-danger'><ul>";
+                $msg .= "<li>Status is: " . $e->getHttpStatus();" </li>";
+                // $msg .= "<li>Type is: " . $err['type'];" </li>";
+                // $msg .= "<li>Code is: " . $err['code'];" </li>";
+                // $msg .= "<li>Param is: " . $err['param'];" </li>"; 
+                $msg .= "<li>Message is: " . $err['message'];" </li>";      
+                $msg .= "</ul></div>";
+                echo $msg;
+
             } catch (\Stripe\Error\RateLimit $e) {
                 // Too many requests made to the API too quickly
             } catch (\Stripe\Error\InvalidRequest $e) {
@@ -114,13 +117,17 @@ class Order
                 // Since it's a decline, \Stripe\Error\Card will be caught
                 $body = $e->getJsonBody();
                 $err  = $body['error'];
-            
-                print('Status is:' . $e->getHttpStatus() . "\n");
-                print('Type is:' . $err['type'] . "\n");
-                print('Code is:' . $err['code'] . "\n");
-                // param is '' in this case
-                print('Param is:' . $err['param'] . "\n");
-                print('Message is:' . $err['message'] . "\n");
+
+                $msg = "<div class='alert alert-danger'><ul>";
+                $msg .= "<li>Status is: " . $e->getHttpStatus();" </li>";
+                // $msg .= "<li>Type is: " . $err['type'];" </li>";
+                // $msg .= "<li>Code is: " . $err['code'];" </li>";
+                // $msg .= "<li>Param is: " . $err['param'];" </li>"; 
+                $msg .= "<li>Message is: " . $err['message'];" </li>";      
+                $msg .= "</ul></div>";
+                
+                echo $msg;
+
             } catch (\Stripe\Error\RateLimit $e) {
                 // Too many requests made to the API too quickly
             } catch (\Stripe\Error\InvalidRequest $e) {
@@ -160,13 +167,15 @@ class Order
                 // Since it's a decline, \Stripe\Error\Card will be caught
                 $body = $e->getJsonBody();
                 $err  = $body['error'];
-            
-                print('Status is:' . $e->getHttpStatus() . "\n");
-                print('Type is:' . $err['type'] . "\n");
-                print('Code is:' . $err['code'] . "\n");
-                // param is '' in this case
-                print('Param is:' . $err['param'] . "\n");
-                print('Message is:' . $err['message'] . "\n");
+                $msg = "<div class='alert alert-danger'><ul>";
+                $msg .= "<li>Status is: " . $e->getHttpStatus();" </li>";
+                // $msg .= "<li>Type is: " . $err['type'];" </li>";
+                // $msg .= "<li>Code is: " . $err['code'];" </li>";
+                // $msg .= "<li>Param is: " . $err['param'];" </li>"; 
+                $msg .= "<li>Message is: " . $err['message'];" </li>";      
+                $msg .= "</ul></div>";
+                echo $msg;
+                
                 $charge_customer = false;
             } catch (\Stripe\Error\RateLimit $e) {
                 // Too many requests made to the API too quickly

@@ -7,6 +7,8 @@ require_once('class/csv.php');
 $orders = new Order();
 $csv = new Upload();
 
+$msg = NULL;
+
 // Create an order
 if (isset($_POST['stripeToken'])) 
 {

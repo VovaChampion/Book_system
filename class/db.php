@@ -1,18 +1,19 @@
 <?php
 class DB
 {
-    // private $host = 'localhost';
-    // private $db   = 'bookstore';
-    // private $user = 'root';
-    // private $pass = '';
-    // private $charset = 'utf8mb4';
-
-    // http://boksystem.tmodel.se/
-    private $host = 'my71b.sqlserver.se';
-    private $db   = '236966-boksystem';
-    private $user = '236966_wf46533';
-    private $pass = 'book_system';
+    // localhost
+    private $host = 'localhost';
+    private $db   = 'bookstore';
+    private $user = 'root';
+    private $pass = '';
     private $charset = 'utf8mb4';
+
+    // // http://boksystem.tmodel.se/
+    // private $host = 'my71b.sqlserver.se';
+    // private $db   = '236966-boksystem';
+    // private $user = '236966_wf46533';
+    // private $pass = 'book_system';
+    // private $charset = 'utf8mb4';
 
     protected $conn;
 
