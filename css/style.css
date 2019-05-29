@@ -86,7 +86,7 @@ h1.company_name {
 }
 
 .download_file  {
-    position: absolute;
+    position: relative;
     margin-top: 20px;
 }
 
@@ -99,6 +99,13 @@ h1.company_name {
 
 .output{
     margin: 0 auto;
+    overflow-x:auto;
+}
+
+
+.table_output{
+    overflow-y:scroll;
+    max-height: 450px ;
 }
 
 /* Stripe */

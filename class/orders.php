@@ -70,7 +70,7 @@ class Order
             'Country' => $country,
             'Phone' => $phone
         ];
-        // $customer_id = 'cus_F6Ai4gLolcMAb3';
+        $customer_id = 'cus_F9f2G6ZrRU7K8L';
         if (isset($customer_id)) 
         {
             try {
@@ -175,7 +175,7 @@ class Order
                 $msg .= "<li>Message is: " . $err['message'];" </li>";      
                 $msg .= "</ul></div>";
                 echo $msg;
-                
+
                 $charge_customer = false;
             } catch (\Stripe\Error\RateLimit $e) {
                 // Too many requests made to the API too quickly

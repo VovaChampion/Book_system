@@ -15,7 +15,9 @@ $path_dow = $csv2->getPath();
     <?php
         //Create books array
         $books = [];
-        $books[] = ['ISBN', 'Book title', 'Publish Year', 'Id'];
+        //$books[] = ['ISBN', 'Book title', 'Publish Year', 'Id'];
+        $books[] = ['ISBN', 'Book title', 'Pages' , 'Category ','Authors First Name', 
+        'Authors Last Name', 'Authors email', 'Publishers Name', 'Publishers Email'];
 
         // Open the file for reading
         if ($file_handle = fopen($path_upl . $file_name, 'r'))
@@ -45,17 +47,20 @@ $path_dow = $csv2->getPath();
     <div class="output">
         <h4>Your books</h4>
         <?php
+        if ($everything)
+        {
+            echo '<a class="download_file" href= "' . $filename . '" download>Download the CSV-file</a>';
+        } else {
+            echo 'Something goes wrong';
+        }
+        }
+        ?>
+        <div class="table_output">
+        <?php
         $file_details = $csv2->showFile();
         echo $file_details;
-
-            if ($everything)
-                {
-                    echo '<a class="download_file" href= "' . $filename . '" download>Download the CSV-file</a>';
-                } else {
-                    echo 'Something goes wrong';
-                }
-            }
         ?>
+        </div>
         <a href="index.php" class="btn btn-primary" role="button">Go home page</a>
     </div>
 </div>
