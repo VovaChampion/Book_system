@@ -70,7 +70,7 @@ class Order
             'Country' => $country,
             'Phone' => $phone
         ];
-        $customer_id = 'cus_F9f2G6ZrRU7K8L';
+        //$customer_id = 'cus_F9f2G6ZrRU7K8L';
         if (isset($customer_id)) 
         {
             try {
